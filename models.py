@@ -11,7 +11,6 @@ users = """CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(100),
     email VARCHAR(255),
     password VARCHAR(255),
-    user_type VARCHAR(256),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );"""
 

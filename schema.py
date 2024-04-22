@@ -1,23 +1,33 @@
 from pydantic import BaseModel,EmailStr
 from datetime import datetime
+from typing import Optional
 
 class User(BaseModel):
     username: str
-    email: EmailStr
-    password: str
-    user_type: str
-    created_at: datetime
+    email: EmailStr | None = None
+    password: str 
+    created_at: datetime | None = None
+    # hashed_password: str 
+    # user_type:  str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: str | None = None
+
 
 
 class Resources(BaseModel):
-    title: str
+    id: int
     user_id: str
+    title: str
     created_at: datetime
 
 class Resource_details(BaseModel):
-    resource_id: str
-    link: str
+    id: int
+    resource_id: int
+    resource_link: str
     created_at: datetime
-
-
 
