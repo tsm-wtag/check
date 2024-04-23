@@ -11,7 +11,7 @@ from routes.resources import res
 cursor = conn.cursor()
 app = FastAPI()
 
-app.include_router(res)
+#app.include_router(res)
 app.include_router(log)
 
 
@@ -61,40 +61,40 @@ def read_user(user_id: int):
     #     conn.close()
 
 # Update user by ID
-@app.put("/users/{user_id}/")
-def update_user(user_id: int, username: str, email: str):
-    cursor = None
-    try:
-        cursor = conn.cursor()
-        cursor.execute(
-            "UPDATE users SET username = %s, email = %s WHERE id = %s;",(username, email, user_id)
-        )
-        conn.commit()
-        return {"message": "User updated successfully"}
-    except psycopg2.Error as e:
-        conn.rollback()  # Rollback changes if there's an error
-        print("\n\ncheckin\n\n")
-        raise HTTPException(status_code=500, detail=f"Failed to update user: {e}")
-    finally:
-        if cursor:
-            cursor.close()
-        conn.close()  # Close the connection in the finally block
+# @app.put("/users/{user_id}/")
+# def update_user(user_id: int, username: str, email: str):
+#     cursor = None
+#     try:
+#         cursor = conn.cursor()
+#         cursor.execute(
+#             "UPDATE users SET username = %s, email = %s WHERE id = %s;",(username, email, user_id)
+#         )
+#         conn.commit()
+#         return {"message": "User updated successfully"}
+#     except psycopg2.Error as e:
+#         conn.rollback()  # Rollback changes if there's an error
+#         print("\n\ncheckin\n\n")
+#         raise HTTPException(status_code=500, detail=f"Failed to update user: {e}")
+#     finally:
+#         if cursor:
+#             cursor.close()
+#         conn.close()  # Close the connection in the finally block
 
 # Delete user by ID
-@app.delete("/users/{user_id}/")
-def delete_user(user_id: int):
+# @app.delete("/users/{user_id}/")
+# def delete_user(user_id: int):
    
-    cursor = conn.cursor()
-    try:
-        cursor.execute("DELETE FROM users WHERE id = %s;", (user_id,))
-        conn.commit()
-        return {"message": "User deleted successfully"}
-    except psycopg2.Error as e:
-        conn.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to delete user: {e}")
-    # finally:
-    #     cursor.close()
-    #     conn.close()
+#     cursor = conn.cursor()
+#     try:
+#         cursor.execute("DELETE FROM users WHERE id = %s;", (user_id,))
+#         conn.commit()
+#         return {"message": "User deleted successfully"}
+#     except psycopg2.Error as e:
+#         conn.rollback()
+#         raise HTTPException(status_code=500, detail=f"Failed to delete user: {e}")
+#     # finally:
+#     #     cursor.close()
+#     #     conn.close()
 
 
 if __name__ == "__main__":
